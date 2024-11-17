@@ -1,0 +1,29 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ProductManager {
+    private RedBlackTree tree = new RedBlackTree();
+
+    public void loadProducts(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                Product product = new Product(parts[0], parts[1], parts[2], Double.parseDouble(parts[3]));
+                tree.insert(product);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void searchProduct(String productId) {
+        Product result = tree.search(productId);
+        if (result != null) {
+            System.out.println(result);
+        } else {
+            System.out.println("Product not found for ID: " + productId);
+        }
+    }
+}
