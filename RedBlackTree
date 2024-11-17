@@ -1,0 +1,56 @@
+public class RedBlackTree {
+    private TreeNode root;
+
+    public RedBlackTree() {
+        root = null;
+    }
+
+    public void insert(Product product) {
+        TreeNode newNode = new TreeNode(product);
+        if (root == null) {
+            root = newNode;
+            root.isRed = false; // Root is always black.
+            return;
+        }
+        insertRec(root, newNode);
+        fixInsert(newNode);
+    }
+
+    private void insertRec(TreeNode current, TreeNode newNode) {
+        if (newNode.product.getProductId().compareTo(current.product.getProductId()) < 0) {
+            if (current.left == null) {
+                current.left = newNode;
+                newNode.parent = current;
+            } else {
+                insertRec(current.left, newNode);
+            }
+        } else if (newNode.product.getProductId().compareTo(current.product.getProductId()) > 0) {
+            if (current.right == null) {
+                current.right = newNode;
+                newNode.parent = current;
+            } else {
+                insertRec(current.right, newNode);
+            }
+        } else {
+            System.out.println("Error: Duplicate Product ID '" + newNode.product.getProductId() + "'");
+        }
+    }
+
+    private void fixInsert(TreeNode node) {
+        // Implementation of Red-Black Tree balancing logic after insertion.
+    }
+
+    public Product search(String productId) {
+        TreeNode node = searchRec(root, productId);
+        return node != null ? node.product : null;
+    }
+
+    private TreeNode searchRec(TreeNode current, String productId) {
+        if (current == null || productId.equals(current.product.getProductId())) {
+            return current;
+        }
+        return productId.compareTo(current.product.getProductId()) < 0 
+                ? searchRec(current.left, productId) 
+                : searchRec(current.right, productId);
+    }
+}
