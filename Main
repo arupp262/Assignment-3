@@ -1,0 +1,18 @@
+public class Main {
+    public static void main(String[] args) {
+        ProductManager manager = new ProductManager();
+        manager.loadProducts("data/amazon-product-data.csv");
+
+        // Test searches
+        System.out.println("Search Results:");
+        manager.searchProduct("P1001");
+        manager.searchProduct("P2000");
+        manager.searchProduct("P3005");
+
+        // Test insertions
+        System.out.println("\nInsertions:");
+        manager.searchProduct("P1001");
+        Product duplicate = new Product("P1001", "Duplicate Product", "Test", 99.99);
+        manager.searchProduct("P1001");
+    }
+}
