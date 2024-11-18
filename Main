@@ -1,11 +1,11 @@
 public class Main {
     public static void main(String[] args) {
         ProductManager manager = new ProductManager();
-        manager.loadProducts("data/amazon-product-data.csv");
+        manager.loadProducts("./amazon-product-data.csv");
 
         // Test searches
         System.out.println("Search Results:");
-        manager.searchProduct("P1001");
+        manager.searchProduct("P1");
         manager.searchProduct("P2000");
         manager.searchProduct("P3005");
 
