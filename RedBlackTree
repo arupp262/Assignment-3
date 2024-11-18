@@ -46,11 +46,13 @@ public class RedBlackTree {
     }
 
     private TreeNode searchRec(TreeNode current, String productId) {
-        if (current == null || productId.equals(current.product.getProductId())) {
-            return current;
+        if (current == null || current.product.getProductId().equals(productId)) {
+            return current; // Found the node or reached a null (not found)
         }
-        return productId.compareTo(current.product.getProductId()) < 0 
-                ? searchRec(current.left, productId) 
-                : searchRec(current.right, productId);
+        if (productId.compareTo(current.product.getProductId()) < 0) {
+            return searchRec(current.left, productId); // Search in the left subtree
+        } else {
+            return searchRec(current.right, productId); // Search in the right subtree
+        }
     }
 }
