@@ -8,12 +8,46 @@ public class ProductManager {
     public void loadProducts(String filePath) {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
+            line = reader.readLine();
+            int idCounter = 1; // Start counter at 1
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                Product product = new Product(parts[0], parts[1], parts[2], Double.parseDouble(parts[3]));
+                String[] parts = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                // Remove quotes around the description field
+                if (parts.length > 1) {
+                    parts[1] = parts[1].replace("\"", "");
+                }
+
+                // Initialize price
+                double price = 0.00; // Default value for missing or invalid price
+
+                // Check if the price field exists
+                if (parts.length > 3) {
+                    String priceString = parts[3].trim();
+                    if (!priceString.isEmpty() && !priceString.equalsIgnoreCase("Total Price:")) {
+                        try {
+                            // Remove dollar signs, commas, and spaces, then parse as a double
+                            String cleanedPrice = priceString.replace("$", "").replace(",", "").trim();
+                            price = Double.parseDouble(cleanedPrice);
+                        } catch (NumberFormatException e) {
+                            price = 0.00; // Fallback to 0.00 if parsing fails
+                        }
+                    }
+                }
+
+                // Ensure the product has the correct number of fields before creating the object
+                String id = parts.length > 0 ? parts[0] : "Unknown ID";
+                // Generate the new unique ID
+                String uniqueId = "P" + idCounter;
+                idCounter++; // Increment the counter for the next product
+                String description = parts.length > 1 ? parts[1] : "No Description";
+                String category = parts.length > 2 ? parts[2] : "No Category";
+
+                // Create and insert the product
+                Product product = new Product(uniqueId, description, category, price);
                 tree.insert(product);
             }
         } catch (IOException e) {
+            System.out.println("Error while reading products from " + e.getMessage());
             e.printStackTrace();
         }
     }
