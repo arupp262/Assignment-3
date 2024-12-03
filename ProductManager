@@ -45,6 +45,7 @@ public class ProductManager {
                 // Create and insert the product
                 Product product = new Product(uniqueId, description, category, price);
                 tree.insert(product);
+               // tree.insert(new Product("P1001", "Duplicate Product", "Test", 99.99));
             }
         } catch (IOException e) {
             System.out.println("Error while reading products from " + e.getMessage());
