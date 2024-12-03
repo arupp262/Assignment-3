@@ -1,6 +1,8 @@
 Alexander Rupp 48835402
 Stephen Hartmere 49215380
 
+//O(logn) -time complexity, as we are using red-black binary trees, these operations search, insert and delete are all O(logn)
+
 Search Results:
 Product ID: P1, Name: DB Longboards CoreFlex Crossbow 41 Bamboo Fiberglass Longboard Complete, Category: "Sports & Outdoors | Outdoor Recreation | Skates Skateboards & Scooters | Skateboarding | Standard Skateboards & Longboards | Longboards", Price: $237.68
 Product ID: P2000, Name: POP Star Wars: Rogue One - C2-B5, Category: , Price: $2.13
