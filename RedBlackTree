@@ -16,6 +16,27 @@ public class RedBlackTree {
         fixInsert(newNode);
     }
 
+   /* private void insertRec(TreeNode current, TreeNode newNode) {
+        if (newNode.product.getProductId().compareTo(current.product.getProductId()) < 0) {
+            if (current.left == null) {
+                current.left = newNode;
+                newNode.parent = current;
+            } else {
+                insertRec(current.left, newNode);
+            }
+        } else if (newNode.product.getProductId().compareTo(current.product.getProductId()) > 0) {
+            if (current.right == null) {
+                current.right = newNode;
+                newNode.parent = current;
+            } else {
+                insertRec(current.right, newNode);
+            }
+
+        } if (newNode.product.getProductId().compareTo(current.product.getProductId()) == 0) {
+            System.out.println("Error: Duplicate Product ID '" + newNode.product.getProductId() + "'");
+        }
+    }*/
+
     private void insertRec(TreeNode current, TreeNode newNode) {
         if (newNode.product.getProductId().compareTo(current.product.getProductId()) < 0) {
             if (current.left == null) {
@@ -32,9 +53,12 @@ public class RedBlackTree {
                 insertRec(current.right, newNode);
             }
         } else {
+            // Duplicate found, stop insertion
             System.out.println("Error: Duplicate Product ID '" + newNode.product.getProductId() + "'");
+            return;
         }
     }
+
 
     private void fixInsert(TreeNode node) {
         // Implementation of Red-Black Tree balancing logic after insertion.
@@ -44,6 +68,7 @@ public class RedBlackTree {
         TreeNode node = searchRec(root, productId);
         return node != null ? node.product : null;
     }
+//O(logn) -time complexity, as we are using red-black binary trees, these operations search, insert and delete are all O(logn)
 
     private TreeNode searchRec(TreeNode current, String productId) {
         if (current == null || current.product.getProductId().equals(productId)) {
